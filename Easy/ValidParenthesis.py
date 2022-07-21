@@ -4,14 +4,14 @@
 # def balanced(s, i=0, cnt=0):
 #     if i == len(s): return cnt == 0
 #     if cnt < 0: return False
-#     if s[i] == "(" or "{" or "[":
+#     if s[i] == "(":
 #         return balanced(s, i + 1, cnt + 1)
-#     elif s[i] == ")" or "}" or "]":
+#     elif s[i] == ")":
 #         return balanced(s, i + 1, cnt - 1)
 #     return balanced(s, i + 1, cnt)
 #
 #
-# for s in ["[({(())}[()])]", "(([]){})", "{[}[{}{{({)){[}([]{)}({())[}[}"]:
+# for s in ["(())",")(","())"]:
 #     print("{}: {}".format(s, balanced(s)))
 
 class Solution:
