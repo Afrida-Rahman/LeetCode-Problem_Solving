@@ -12,11 +12,17 @@ class Solution:
                 num = num - n
                 final += normal[n]
                 print(f"num={num}")
+                if num == n:
+                    num = num - n
+                    final += normal[n]
             elif num > n:
                 print(f"num > n: {num}>{n} normal[n]={normal[n]}")
                 num = num - n
                 final += normal[n]
                 print(f"num={num}")
+                if num > n:
+                    num = num - n
+                    final += normal[n]
             if num == e:
                 print(f"num == e : {num}>{e}  exceptional[e]={exceptional[e]}")
                 num = num - e
@@ -42,4 +48,4 @@ class Solution:
         return final
 
 
-print(Solution.intToRoman(31))
+print(Solution.intToRoman(81))
