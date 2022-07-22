@@ -1,50 +1,36 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        stack = []
-        close_useless = 0
-        temp = 0
-        c = 0
-        hold = 0
-        open_count = 0
-        total = 0
-        for i in s:
-            if i == '(':
-                if open_count == 0 and temp < c:
-                    temp = c
-                    c = 0
-                else:
-                    open_count += 1
-                    print('1st if')
-                    stack.append(i)
-            if i == ')':
-                if not stack:
-                    close_useless += 1
-                    # print('not stack One' + i)
-                    if temp < c:
-                        temp = c
-                        c = 0
-                elif stack.pop() == '(':
-                    total += 2
-                    c += 2
-                    open_count -= 1
-            if not stack:
-                print('no data')
-            print(
-                f"stack={stack} c={c} i={i} temp={temp} total={total} openCount={open_count}, closeCount={close_useless}")
-        if len(stack) > 0:
-            if temp < c:
-                return c
-            elif temp > c:
-                return temp
-        else:
-            if close_useless <= 0:
-                return total
+        length = 0
+        open = []
+        close = []
+        for i in range(len(s)):
+            if s[i] == '(':
+                open.append(i)
             else:
-                if temp < c:
-                    return c
-                elif temp > c:
-                    return temp
+                if not open:
+                    close.append(i)
+                else:
+                    open.pop()
+            print(f"open={open}  close={close}")
+        open.extend(close)
+        open.sort()
+        print(f"left ones:{open} len={len(open)}")
+
+        if len(open) == 1:
+            print('when :: open ==== 1')
+            return max(len(s) - 1 - open[0], len(s) - 1 - (len(s) - 1 - open[0]))
+        elif len(open) > 1:
+            print('when :: open > 1')
+            for i in range(1, len(open)):
+                length = max(length, open[i] - open[i - 1])
+                print(f'Initial diff={open[i] - open[i - 1]}')
+            length = max(len(s) - open[-1] - 1, length - 1)
+            return max(open[0], length)
+        else:
+            print('when :: open ==== 0')
+            return len(s)
 
 
-s = "(()(()()()"
-print(f"final result:: {s}" + str(Solution().longestValidParentheses(s)))
+s = "(()))())("
+#    012345678
+print(f"final result:: {s}  maxLength=" + str(Solution().longestValidParentheses(s)))
